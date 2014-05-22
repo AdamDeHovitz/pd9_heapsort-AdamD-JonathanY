@@ -41,19 +41,35 @@ public class HeapSort{
 	int n = data.length - 1;
 	int x;
 	int index;
-	while (n > 0){
+	while (n >= 0){
 	    x = data[0];
 	    data[0] = data[n];
-	    index = 1;
-	    while (index < n){
-		if (data[index] < data[(index - 1)/2]){
-		    swap( data, index, (index -1)/2);
-		    index = (index -1) /2;
+	    index = 0;
+	    while (index * 2 + 1 < n){
+		if (index * 2 + 2 == n){
+		    if (data[index * 2 + 1] >data[index]){
+			swap(data, index * 2 + 1, index);
+			break;}
+		    else {
+			break;}
+		}
+		int l = data[index * 2 + 1];
+		int r = data[index * 2 + 2];
+		if (l > r && l > data[index]){
+		    swap(data, index, index * 2 +1);
+		    index = index * 2 + 1;
+		}
+		else if (l < r && r > data[index]){
+		    swap(data, index, index * 2 +2);
+		    index = index * 2 + 2;
 		}
 		else {
 		    break;}
+		    
 	    }
-	    data[n--] = x;
+	    data[n] = x;
+	    n--;
+	    System.out.println("test: "+ Print(data));
 	}
     }
 
@@ -75,7 +91,7 @@ public class HeapSort{
 	return ans;}
 
     public static void main( String[] args){
-	Integer[] data = {2,35,5,3,23,4,1,24,7,5,84,53,52};
+	Integer[] data = {2,35,3,23,4,1,24,7,5,84,53,52};
 	data = sort(data);
 	System.out.println(Print(data));
 	Integer[] other = {89,3,35,2,4,7,1};
